@@ -1,0 +1,40 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
+}
+
+body {
+  background-color: #fbfbfb;
+}
+
+.apod-container {
+  column-count: 3;
+  column-gap: 56px;
+  padding: 156px 356px;
+
+  &__block {
+    margin: 0;
+    display: flex;
+    break-inside: avoid;
+    flex-direction: column;
+    margin-bottom: 56px;
+  }
+
+  &__figure {
+    margin-bottom: 16px;
+  }
+
+  &__content {
+    width: 100%;
+    border-radius: 16px;
+    background-color: #0d0d0d;
+  }
+
+  &__author {
+    color: #0d0d0d;
+    font-size: 20px;
+    font-weight: bold;
+  }
+}

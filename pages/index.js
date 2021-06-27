@@ -10,7 +10,7 @@ const Home = () => {
   const NOOP = () => null;
 
   const startDate = new Date();
-  startDate.setMonth(startDate.getMonth() - 2);
+  startDate.setDate(startDate.getDate() - 20);
   const formatedStartDate = dateToApi(startDate);
 
   useEffect(() => {
@@ -18,16 +18,29 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="container">
+    <div className="apod-container">
       {data.map((e, idx) => {
         return (
-          <figure key={idx}>
-            {e.media_type === "image" ? (
-              <img src={e.url} alt={e.title} />
-            ) : (
-              <NOOP />
-            )}
-          </figure>
+          <div key={idx} className="apod-container__block">
+            <figure className="apod-container__figure">
+              {e.media_type === "image" ? (
+                <img
+                  className="apod-container__content"
+                  src={e.url}
+                  alt={e.title}
+                />
+              ) : (
+                <iframe
+                  className="apod-container__content"
+                  src={e.url}
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                ></iframe>
+              )}
+            </figure>
+            <p className="apod-container__author">{e.copyright ? e.copyright : e.title}</p>
+          </div>
         );
       })}
     </div>

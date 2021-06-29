@@ -39,41 +39,48 @@ body {
     font-weight: bold;
   }
 
-  &__overflow {
-    // display: none;
+  &__overlay {
+    opacity: 0;
     position: fixed;
     top: 0;
     left: 0;
     height: 100vh;
     width: 100vw;
-    z-index: 1;
     background-color: rgba(0, 0, 0, 0.9);
+    z-index: -1;
+    transition: all 0.3s linear 0.2s;
 
     &--active {
-      display: block;
+      opacity: 1;
+      z-index: 1;
+      transition: all 0.3s linear 0s;
     }
   }
 
   &__modal {
+    opacity: 0;
     display: flex;
     flex-direction: column;
     padding: 72px 112px 0px;
     position: fixed;
-    top: 56px;
+    top: 168px;
     left: 56px;
     height: calc(100vh - 56px * 2);
     width: calc(100vw - 56px * 2);
-    z-index: 2;
     background-color: #fbfbfb;
     border-radius: 16px;
     overflow-y: auto;
-
-    &--active {
-      display: flex;
-    }
+    z-index: -1;
+    transition: all ease 0.3s;
   }
 
   .modal {
+    &--active {
+      top: 56px;
+      z-index: 2;
+      opacity: 1;
+    }
+
     &__header {
       display: flex;
       justify-content: space-between;
@@ -95,34 +102,16 @@ body {
     }
 
     &__close {
-      position: relative;
       background-color: transparent;
       border: none;
-      height: 25px;
-      width: 25px;
+      height: 20px;
+      width: 21px;
 
       &::before {
-        position: absolute;
-        top: 0;
-        left: 0;
-        content: "";
-        height: 25px;
-        width: 4px;
-        border-radius: 16px;
-        background-color: #0a0a0a;
-        transform: rotateZ(-45deg);
-      }
-
-      &::after {
-        position: absolute;
-        top: 0;
-        left: 0;
-        content: "";
-        height: 25px;
-        width: 4px;
-        border-radius: 16px;
-        background-color: black;
-        transform: rotateZ(45deg);
+        display: inline-block;
+        content: "\00d7";
+        font-size: 40px;
+        line-height: 20px;
       }
     }
 

@@ -5,11 +5,19 @@
 import { useEffect, useState } from "react";
 import { get } from "../service/apod";
 import { dateToApi } from "../utils";
+import Modal from "../components/Modal";
 
 const Home = () => {
   const [data, setData] = useState([]);
+  const [isModalActive, setIsModalActive] = useState(false);
 
-  const NOOP = () => null;
+  const handleOpenModal = () => {
+    setIsModalActive(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalActive(false);
+  };
 
   const startDate = new Date();
   startDate.setDate(startDate.getDate() - 20);
@@ -26,7 +34,10 @@ const Home = () => {
           e?.title?.length <= 30 ? e.title : `${e.title.slice(0, 30)}...`;
         return (
           <div key={idx} className="apod-container__block">
-            <figure className="apod-container__figure">
+            <figure
+              className="apod-container__figure"
+              onClick={handleOpenModal}
+            >
               {e.media_type === "image" ? (
                 <img
                   className="apod-container__content"
@@ -47,36 +58,7 @@ const Home = () => {
           </div>
         );
       })}
-      <div className="apod-container__overflow"></div>
-      <div className="apod-container__modal modal">
-        <div className="modal__header">
-          <div className="modal__block">
-            <h1 className="modal__title">A paper moon solar solar eclipse</h1>
-            <p className="modal__copyright">Wang LetianEyes at Night</p>
-            <p className="modal__date">06/28/2021</p>
-          </div>
-          <button className="modal__close" />
-        </div>
-
-        <div className="modal__content">
-          <div className="modal__media" />
-          <div className="modal__description">
-            Few cosmic vistas excite the imagination like the Orion Nebula. Also
-            known as M42, the nebula's glowing gas surrounds hot young stars at
-            the edge of an immense interstellar molecular cloud only 1,500
-            light-years away. The Orion Nebula offers one of the best
-            opportunities to study how stars are born partly because it is the
-            nearest large star-forming region, but also because the nebula's
-            energetic stars have blown away obscuring gas and dust clouds that
-            would otherwise block our view - providing an intimate look at a
-            range of ongoing stages of starbirth and evolution. The featured
-            image of the Orion Nebula is among the sharpest ever, constructed
-            using data from the Hubble Space Telescope. The entire Orion Nebula
-            spans about 40 light years and is located in the same spiral arm of
-            our Galaxy as the Sun.
-          </div>
-        </div>
-      </div>
+      <Modal isActive={isModalActive} onClose={handleCloseModal} />
     </div>
   );
 };

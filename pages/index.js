@@ -3,20 +3,34 @@
 /* eslint-disable @next/next/no-img-element */
 
 import { useEffect, useState } from "react";
+
 import { get } from "../service/apod";
-import { dateToApi } from "../utils";
+import { dateToApi, formatDate } from "../utils";
 import Modal from "../components/Modal";
 
 const Home = () => {
   const [data, setData] = useState([]);
   const [isModalActive, setIsModalActive] = useState(false);
+  const [modalData, setModalDate] = useState({});
+  
+  const bodyRef = document.querySelector("body");
 
   const handleOpenModal = () => {
     setIsModalActive(true);
+    bodyRef.classList.add("no-scroll");
   };
 
   const handleCloseModal = () => {
     setIsModalActive(false);
+    bodyRef.classList.remove("no-scroll");
+  };
+
+  const handleMediaAction = (mediaInformations) => () => {
+    setModalDate({
+      ...mediaInformations,
+      date: formatDate(mediaInformations.date),
+    });
+    handleOpenModal();
   };
 
   const startDate = new Date();
@@ -32,11 +46,18 @@ const Home = () => {
       {data.map((e, idx) => {
         const mediaTitle =
           e?.title?.length <= 30 ? e.title : `${e.title.slice(0, 30)}...`;
+        const mediaInformations = {
+          title: e.title,
+          copyright: e.copyright ? e.copyright : "No copyright",
+          date: e.date,
+          media: e.url,
+          explanation: e.explanation,
+        };
         return (
           <div key={idx} className="apod-container__block">
             <figure
               className="apod-container__figure"
-              onClick={handleOpenModal}
+              onClick={handleMediaAction(mediaInformations)}
             >
               {e.media_type === "image" ? (
                 <img
@@ -58,7 +79,11 @@ const Home = () => {
           </div>
         );
       })}
-      <Modal isActive={isModalActive} onClose={handleCloseModal} />
+      <Modal
+        isActive={isModalActive}
+        onClose={handleCloseModal}
+        {...modalData}
+      />
     </div>
   );
 };

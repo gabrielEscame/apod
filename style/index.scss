@@ -3,6 +3,7 @@
   padding: 0;
   box-sizing: border-box;
   font-family: "Roboto", sans-serif;
+  border: none;
 }
 
 body {
@@ -29,12 +30,121 @@ body {
   &__content {
     width: 100%;
     border-radius: 16px;
-    background-color: #0d0d0d;
+    background-color: #0a0a0a;
   }
 
-  &__author {
-    color: #0d0d0d;
-    font-size: 20px;
+  &__title {
+    color: #0a0a0a;
+    font-size: 18px;
     font-weight: bold;
+  }
+
+  &__overflow {
+    // display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    z-index: 1;
+    background-color: rgba(0, 0, 0, 0.9);
+
+    &--active {
+      display: block;
+    }
+  }
+
+  &__modal {
+    display: flex;
+    flex-direction: column;
+    padding: 72px 112px 0px;
+    position: fixed;
+    top: 56px;
+    left: 56px;
+    height: calc(100vh - 56px * 2);
+    width: calc(100vw - 56px * 2);
+    z-index: 2;
+    background-color: #fbfbfb;
+    border-radius: 16px;
+    overflow-y: auto;
+
+    &--active {
+      display: flex;
+    }
+  }
+
+  .modal {
+    &__header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    &__title {
+      font-size: 32px;
+      margin-bottom: 8px;
+    }
+
+    &__copyright {
+      font-size: 16px;
+      margin-bottom: 8px;
+    }
+
+    &__date {
+      font-size: 14px;
+      font-weight: lighter;
+    }
+
+    &__close {
+      position: relative;
+      background-color: transparent;
+      border: none;
+      height: 25px;
+      width: 25px;
+
+      &::before {
+        position: absolute;
+        top: 0;
+        left: 0;
+        content: "";
+        height: 25px;
+        width: 4px;
+        border-radius: 16px;
+        background-color: #0a0a0a;
+        transform: rotateZ(-45deg);
+      }
+
+      &::after {
+        position: absolute;
+        top: 0;
+        left: 0;
+        content: "";
+        height: 25px;
+        width: 4px;
+        border-radius: 16px;
+        background-color: black;
+        transform: rotateZ(45deg);
+      }
+    }
+
+    &__content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 56px;
+    }
+
+    &__media {
+      height: 600px;
+      width: 100%;
+      max-width: 980px;
+      background-color: #0a0a0a;
+      margin-bottom: 32px;
+    }
+
+    &__description {
+      font-size: 20px;
+      width: 100%;
+      max-width: 980px;
+    }
   }
 }

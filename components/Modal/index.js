@@ -1,7 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 
 import { Fragment } from "react";
-import './style.scss'
 
 const Modal = ({
   isActive,

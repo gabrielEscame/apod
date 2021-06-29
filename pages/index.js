@@ -2,7 +2,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @next/next/no-img-element */
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { get } from "../service/apod";
 import { dateToApi, formatDate } from "../utils";
@@ -12,17 +12,16 @@ const Home = () => {
   const [data, setData] = useState([]);
   const [isModalActive, setIsModalActive] = useState(false);
   const [modalData, setModalDate] = useState({});
-  
-  const bodyRef = document.querySelector("body");
+  const bodyRef = useRef();
 
   const handleOpenModal = () => {
     setIsModalActive(true);
-    bodyRef.classList.add("no-scroll");
+    bodyRef.current.classList.add("no-scroll");
   };
 
   const handleCloseModal = () => {
     setIsModalActive(false);
-    bodyRef.classList.remove("no-scroll");
+    bodyRef.current.classList.remove("no-scroll");
   };
 
   const handleMediaAction = (mediaInformations) => () => {
@@ -39,6 +38,7 @@ const Home = () => {
 
   useEffect(() => {
     get(setData, formatedStartDate);
+    bodyRef.current = document.querySelector("body");
   }, []);
 
   return (

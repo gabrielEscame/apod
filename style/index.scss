@@ -38,9 +38,21 @@ body {
     background-color: #0a0a0a;
   }
 
+  &__info {
+    padding: 0 12px;
+    display: flex;
+    justify-content: space-between;
+  }
+
   &__title {
     color: #0a0a0a;
     font-size: 18px;
     font-weight: bold;
+  }
+
+  &__date {
+    font-size: 14px;
+    font-weight: lighter;
+    align-items: center;
   }
 }

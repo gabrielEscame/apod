@@ -45,7 +45,7 @@ const Home = () => {
     <div className="apod-container">
       {data.map((e, idx) => {
         const mediaTitle =
-          e?.title?.length <= 30 ? e.title : `${e.title.slice(0, 30)}...`;
+          e?.title?.length <= 22 ? e.title : `${e.title.slice(0, 22)}...`;
         const mediaInformations = {
           title: e.title,
           copyright: e.copyright ? e.copyright : "No copyright",
@@ -75,7 +75,10 @@ const Home = () => {
                 ></iframe>
               )}
             </figure>
-            <p className="apod-container__title">{mediaTitle}</p>
+            <div className="apod-container__info">
+              <p className="apod-container__title">{mediaTitle}</p>
+              <p className="apod-container__date">{formatDate(e.date)}</p>
+            </div>
           </div>
         );
       })}
